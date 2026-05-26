@@ -2,13 +2,12 @@
 import sys
 import asyncio
 
-from testrail_mcp.mcp_server import TestRailMCPServer
+from testrail_mcp.mcp_server import mcp
 
 def main():
     """Run the TestRail MCP server."""
     print("Starting TestRail MCP server in stdio mode", file=sys.stderr)
-    server = TestRailMCPServer()
-    asyncio.run(server.run_stdio_async())
+    asyncio.run(mcp.run_stdio_async())
 
 if __name__ == "__main__":
     main()

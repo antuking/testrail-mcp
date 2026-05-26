@@ -24,7 +24,7 @@ startCommand:
     |-
     (config) => ({
       command: 'python',
-      args: ['testrail_mcp/main.py'],
+      args: ['-m', 'testrail_mcp'],
       env: {
         TESTRAIL_URL: config.testRailUrl,
         TESTRAIL_USERNAME: config.testRailUsername,

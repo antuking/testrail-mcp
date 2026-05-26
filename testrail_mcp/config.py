@@ -10,9 +10,10 @@ TESTRAIL_URL = os.getenv('TESTRAIL_URL')
 TESTRAIL_USERNAME = os.getenv('TESTRAIL_USERNAME')
 TESTRAIL_API_KEY = os.getenv('TESTRAIL_API_KEY')
 
-# Validate configuration
-if not all([TESTRAIL_URL, TESTRAIL_USERNAME, TESTRAIL_API_KEY]):
-    raise ValueError(
-        "Missing TestRail configuration. Please set TESTRAIL_URL, "
-        "TESTRAIL_USERNAME, and TESTRAIL_API_KEY environment variables."
-    )
+def validate_config():
+    """Validate that all required environment variables are set."""
+    if not all([TESTRAIL_URL, TESTRAIL_USERNAME, TESTRAIL_API_KEY]):
+        raise ValueError(
+            "Missing TestRail configuration. Please set TESTRAIL_URL, "
+            "TESTRAIL_USERNAME, and TESTRAIL_API_KEY environment variables."
+        )
