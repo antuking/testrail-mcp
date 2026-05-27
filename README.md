@@ -2,18 +2,6 @@
 
 A Model Context Protocol (MCP) server for TestRail that allows interaction with TestRail's core entities through a standardized protocol.
 
-## Quick Start
-
-```bash
-uv sync
-cat > .env << 'EOF'
-TESTRAIL_URL=https://your-instance.testrail.io
-TESTRAIL_USERNAME=your-email@example.com
-TESTRAIL_API_KEY=your-api-key
-EOF
-uv run testrail-mcp
-```
-
 ## Features
 
 - **Full CRUD Support**: Comprehensive Create, Read, Update, and Delete operations for all core TestRail entities.
@@ -30,68 +18,65 @@ uv run testrail-mcp
 - **v6.2+ Enhanced Support**: Support for `refs` in runs and plans, and material change validation.
 - **Full MCP Support**: Standardized protocol for use with any MCP client (Claude Desktop, Cursor, Windsurf, etc.).
 
-## Local Installation
+## 🚀 Quick Start (Hosted)
 
-1. Clone this repository:
+The fastest way to use TestRail MCP is through our hosted instance at `https://horizon.prefect.io/`.
 
-   ```bash
-   git clone https://github.com/yourusername/testrail-mcp.git
-   cd testrail-mcp
-   ```
+Add it to your favorite AI tools using these commands:
 
-2. Install dependencies with uv:
+### Codex CLI
+```bash
+codex mcp add --url https://kyzu-testrail.fastmcp.app/mcp kyzu-testrail
+```
 
-   ```bash
-   uv sync
-   ```
+### Claude CLI
+```bash
+claude mcp add --scope local --transport http kyzu-testrail https://kyzu-testrail.fastmcp.app/mcp
+```
 
-## Configuration
+### Gemini CLI
+```bash
+gemini mcp add kyzu-testrail https://kyzu-testrail.fastmcp.app/mcp --transport http
+```
 
-The TestRail MCP server requires specific environment variables to authenticate with your TestRail instance. These must be set before running the server.
+---
 
-1. Create a `.env` file in the root directory of the project:
+## 🛠️ Local Setup (Self-Hosted)
 
-   ```env
-   TESTRAIL_URL=https://your-instance.testrail.io
-   TESTRAIL_USERNAME=your-email@example.com
-   TESTRAIL_API_KEY=your-api-key
-   ```
+If you prefer to run the server locally for development or private use.
 
-   Notes:
-   - `TESTRAIL_URL` should be the full URL to your TestRail instance (for example, `https://example.testrail.io`)
-   - `TESTRAIL_USERNAME` is your TestRail email address used for login
-   - `TESTRAIL_API_KEY` is your TestRail API key (not your password)
+### 1. Prerequisites
+- [uv](https://github.com/astral-sh/uv) installed on your system.
+- TestRail API credentials (URL, Username, API Key).
 
-2. Verify configuration locally:
+### 2. Installation
+```bash
+git clone https://github.com/yourusername/testrail-mcp.git
+cd testrail-mcp
+uv sync
+```
 
-   ```bash
-   uv run testrail-mcp --config
-   ```
+### 3. Configuration
+Create a `.env` file in the root directory:
+```env
+TESTRAIL_URL=https://your-instance.testrail.io
+TESTRAIL_USERNAME=your-email@example.com
+TESTRAIL_API_KEY=your-api-key
+```
 
-## Usage
+Verify your configuration:
+```bash
+uv run testrail-mcp --config
+```
 
-### Running the Server Locally
-
-From inside this repository:
-
+### 4. Running the Server
 ```bash
 uv run testrail-mcp
 ```
 
-From any directory:
-
-```bash
-uv --directory /absolute/path/to/testrail-mcp run testrail-mcp
-```
-
-This starts the MCP server in stdio mode.
-
-### Using with MCP Clients (Local Repo)
-
-Set `REPO_PATH` to your local clone path (for example, `/Users/you/dev/testrail-mcp`).
+### 5. Using with MCP Clients (Local)
 
 #### Codex CLI
-
 ```bash
 codex mcp add testrail_mcp \
   --env TESTRAIL_URL=<TESTRAIL_URL> \
@@ -100,32 +85,13 @@ codex mcp add testrail_mcp \
   -- uv --directory <REPO_PATH> run testrail-mcp
 ```
 
-Or in `config.toml`:
-
-```toml
-[mcp_servers.testrail_mcp]
-command = "uv"
-args = ["--directory", "<REPO_PATH>", "run", "testrail-mcp"]
-
-[mcp_servers.testrail_mcp.env]
-TESTRAIL_API_KEY = "<TESTRAIL_API_KEY>"
-TESTRAIL_URL = "<TESTRAIL_URL>"
-TESTRAIL_USERNAME = "<TESTRAIL_USERNAME>"
-```
-
 #### Claude Desktop
-
 ```json
 {
   "mcpServers": {
     "testrail": {
       "command": "uv",
-      "args": [
-        "--directory",
-        "<REPO_PATH>",
-        "run",
-        "testrail-mcp"
-      ],
+      "args": ["--directory", "<REPO_PATH>", "run", "testrail-mcp"],
       "env": {
         "TESTRAIL_URL": "https://your-instance.testrail.io",
         "TESTRAIL_USERNAME": "your-email@example.com",
@@ -136,38 +102,12 @@ TESTRAIL_USERNAME = "<TESTRAIL_USERNAME>"
 }
 ```
 
-#### Cursor
-
+#### Cursor / Windsurf
 ```json
 {
   "name": "TestRail MCP",
   "command": "uv",
-  "args": [
-    "--directory",
-    "<REPO_PATH>",
-    "run",
-    "testrail-mcp"
-  ],
-  "env": {
-    "TESTRAIL_URL": "https://your-instance.testrail.io",
-    "TESTRAIL_USERNAME": "your-email@example.com",
-    "TESTRAIL_API_KEY": "your-api-key"
-  }
-}
-```
-
-#### Windsurf
-
-```json
-{
-  "name": "TestRail MCP",
-  "command": "uv",
-  "args": [
-    "--directory",
-    "<REPO_PATH>",
-    "run",
-    "testrail-mcp"
-  ],
+  "args": ["--directory", "<REPO_PATH>", "run", "testrail-mcp"],
   "env": {
     "TESTRAIL_URL": "https://your-instance.testrail.io",
     "TESTRAIL_USERNAME": "your-email@example.com",
@@ -177,7 +117,6 @@ TESTRAIL_USERNAME = "<TESTRAIL_USERNAME>"
 ```
 
 #### Gemini CLI
-
 ```bash
 gemini mcp add testrail \
   --env TESTRAIL_URL=<TESTRAIL_URL> \
@@ -186,37 +125,9 @@ gemini mcp add testrail \
   -- uv --directory <REPO_PATH> run testrail-mcp
 ```
 
-Or in `config.yaml`:
-
-```yaml
-mcpServers:
-  testrail:
-    command: "uv"
-    args:
-      - "--directory"
-      - "<REPO_PATH>"
-      - "run"
-      - "testrail-mcp"
-    env:
-      TESTRAIL_URL: "https://your-instance.testrail.io"
-      TESTRAIL_USERNAME: "your-email@example.com"
-      TESTRAIL_API_KEY: "your-api-key"
-```
-
-#### Testing with MCP Inspector
-
-```bash
-npx @modelcontextprotocol/inspector \
-  -e TESTRAIL_URL=<your-url> \
-  -e TESTRAIL_USERNAME=<your-username> \
-  -e TESTRAIL_API_KEY=<your-api-key> \
-  uv --directory <REPO_PATH> run testrail-mcp
-```
-
 ## Development
 
 This server is built using:
-
 - [FastMCP](https://github.com/jlowin/fastmcp) - A Python framework for building MCP servers
-- [Requests](https://requests.readthedocs.io/) - For HTTP communication with TestRail API
-- [python-dotenv](https://github.com/theskumar/python-dotenv) - For environment variable management
+- [Requests](https://requests.readthedocs.io/) - For HTTP communication
+- [python-dotenv](https://github.com/theskumar/python-dotenv) - For environment management
