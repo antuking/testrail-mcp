@@ -8,10 +8,10 @@ version = "0.2.0"
 description = "TestRail MCP Server"
 readme = "README.md"
 authors = [
-    {name = "Tuan Tran", email = "tuan.tran@linecorp.com"}
+    {name = "Kyzu Tran", email = "kyzu.tran@gmail.com"}
 ]
 maintainers = [
-    {name = "Tuan Tran", email = "tuan.tran@linecorp.com"}
+    {name = "Kyzu Tran", email = "kyzu.tran@gmail.com"}
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
