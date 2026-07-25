@@ -6,7 +6,7 @@ Rules for AI agents:
 
 - Use `uv run testrail-mcp-cli ...` or `uv run testrail-cli ...` for all TestRail access.
 - Do not use `curl`, `requests`, `axios`, browser fetch, or raw HTTP for TestRail work.
-- Read `docs/cli/cli.md` before calling TestRail methods.
+- Read `docs/cli/README.md` before calling TestRail methods.
 - Start with compact discovery: `uv run testrail-mcp-cli catalog --compact`.
 - Describe only one method when needed: `uv run testrail-mcp-cli describe <method> --compact`.
 - Keep outputs small with `--fields`, `--limit`, `--compact`, `--summary`, or `--output-file`.

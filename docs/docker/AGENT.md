@@ -8,7 +8,7 @@ Rules for AI agents:
 - Prefer the host shim `./scripts/testrail-cli ...` when working from this repository.
 - Do not install Python, uv, or package dependencies on the host just to query TestRail.
 - Do not use `curl`, `requests`, `axios`, browser fetch, or raw HTTP for TestRail work.
-- Read `docs/docker/docker.md` before running Docker commands.
+- Read `docs/docker/README.md` before running Docker commands.
 - Use a pulled image when available: `ghcr.io/antuking/testrail-mcp:latest`.
 - Use `.env` or forwarded `TESTRAIL_URL`, `TESTRAIL_USERNAME`, and `TESTRAIL_API_KEY` for credentials.
 - Keep outputs small with `--fields`, `--limit`, `--compact`, `--summary`, or `--output-file`.

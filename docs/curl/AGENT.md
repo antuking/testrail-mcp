@@ -10,7 +10,7 @@ Rules for AI agents:
 - Use curl only when the user explicitly asks for raw HTTP debugging or when comparing CLI behavior against direct TestRail REST.
 - Never paste API keys into conversation output.
 - Keep curl responses out of the conversation when they are large; save to a file or summarize.
-- Read `docs/curl/curl.md` before using curl examples.
+- Read `docs/curl/README.md` before using curl examples.
 
 Preferred equivalent for agents:
 
