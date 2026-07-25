@@ -24,6 +24,8 @@ dependencies = [
 
 [project.scripts]
 testrail-mcp = "testrail_mcp.__main__:main"
+testrail-mcp-cli = "testrail_mcp.cli:main"
+testrail-cli = "testrail_mcp.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["testrail_mcp"]

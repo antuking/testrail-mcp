@@ -66,7 +66,7 @@ TESTRAIL_API_KEY=your-api-key
 
 Verify your configuration:
 ```bash
-uv run testrail-mcp --config
+uv run testrail-mcp-cli check-config
 ```
 
 ### 4. Running the Server
@@ -124,6 +124,18 @@ gemini mcp add testrail \
   --env TESTRAIL_API_KEY=<TESTRAIL_API_KEY> \
   -- uv --directory <REPO_PATH> run testrail-mcp
 ```
+
+## Usage Documentation
+
+Detailed usage guides are split by runtime/transport:
+
+- [Curl usage](docs/curl/curl.md): manual HTTP MCP checks and direct TestRail REST debugging.
+- [CLI usage](docs/cli/cli.md): local `uv run testrail-mcp-cli ...` workflows and AI agent command contract.
+- [Docker usage](docs/docker/docker.md): pull/build reusable images and run `testrail-cli` without local Python, uv, or dependencies.
+
+Each usage folder also includes an `AGENT.md` with focused instructions for AI agents.
+
+For AI sub-agents, prefer the CLI or Docker usage docs. Keep curl for manual debugging and behavior comparison.
 
 ## Development
 

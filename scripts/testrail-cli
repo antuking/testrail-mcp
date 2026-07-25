@@ -1,0 +1,46 @@
+#!/bin/sh
+set -eu
+
+IMAGE="${TESTRAIL_MCP_DOCKER_IMAGE:-testrail-mcp:local}"
+ENV_FILE="${TESTRAIL_MCP_ENV_FILE:-.env}"
+WORKDIR="${TESTRAIL_MCP_WORKDIR:-$(pwd)}"
+DOCKER_BIN="${DOCKER_BIN:-}"
+
+if [ -z "$DOCKER_BIN" ]; then
+  if command -v docker >/dev/null 2>&1; then
+    DOCKER_BIN="docker"
+  elif [ -x /opt/homebrew/bin/docker ]; then
+    DOCKER_BIN="/opt/homebrew/bin/docker"
+  elif [ -x /usr/local/bin/docker ]; then
+    DOCKER_BIN="/usr/local/bin/docker"
+  else
+    DOCKER_BIN=""
+  fi
+fi
+
+if [ -z "$DOCKER_BIN" ]; then
+  echo "docker is required for scripts/testrail-cli when local Python/uv is unavailable." >&2
+  exit 127
+fi
+
+# Pass explicit env vars too, so callers can avoid writing credentials to disk.
+if [ -f "$ENV_FILE" ]; then
+  exec "$DOCKER_BIN" run --rm \
+    --env-file "$ENV_FILE" \
+    -e TESTRAIL_URL \
+    -e TESTRAIL_USERNAME \
+    -e TESTRAIL_API_KEY \
+    -v "$WORKDIR:/workspace" \
+    -w /workspace \
+    "$IMAGE" \
+    testrail-cli "$@"
+fi
+
+exec "$DOCKER_BIN" run --rm \
+  -e TESTRAIL_URL \
+  -e TESTRAIL_USERNAME \
+  -e TESTRAIL_API_KEY \
+  -v "$WORKDIR:/workspace" \
+  -w /workspace \
+  "$IMAGE" \
+  testrail-cli "$@"
